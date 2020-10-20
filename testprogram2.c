@@ -76,6 +76,10 @@ movie *processFile(char *fileName)
     // Open a file in read only mode
     FILE *fp = fopen(fileName, "r");
 
+    if (fp == NULL){
+      printf("Unable to open the file");
+    }
+
     // Creat charactor array to store data in each line
     char currLine[1024];
     // a counter to count the number of line being read.
