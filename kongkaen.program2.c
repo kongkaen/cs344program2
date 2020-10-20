@@ -28,6 +28,8 @@ typedef struct movie
 {
     char *title;
     int year;
+    char *language;
+    float rating;
     struct movie *next;
 } movie;
 
@@ -53,9 +55,12 @@ movie *createMovie(char *line)
 
     // The next token is the language
     token = strtok_r(NULL, ",", &saveptr);
+    currMovie->language = calloc(strlen(token) + 1, sizeof(char));
+    strcpy(currMovie->language, token);
 
     // The last token is the rating score
     token = strtok_r(NULL, "\n", &saveptr);
+    currMovie->rating = strtof(token, NULL);
 
     // Set the next node to NULL in the newly created movie entry
     currMovie->next = NULL;
@@ -114,7 +119,7 @@ movie *processFile(char *fileName)
       line_count++;
 
     }
-    
+
     fclose(fp);
     free(currLine);
     return head;
@@ -134,6 +139,16 @@ void swap(movie *ptr1, movie*ptr2)
 	int temp2 = ptr1->year;
 	ptr1->year = ptr2->year;
 	ptr2->year = temp2;
+
+  // Swap language
+	char *temp3 = ptr1->language;
+	ptr1->language = ptr2->language;
+	ptr2->language = temp3;
+
+  // Swap rating
+	float temp4 = ptr1->rating;
+	ptr1->rating = ptr2->rating;
+	ptr2->rating = temp4;
 
 }
 
