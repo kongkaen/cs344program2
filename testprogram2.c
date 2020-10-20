@@ -64,6 +64,9 @@ movie *createMovie(char *line)
     currMovie->next = NULL;
 
     return currMovie;
+
+    //add to test free memory
+    free(currMovie);
 }
 
 /* Part of the following function are from my previous assignment */
@@ -365,6 +368,10 @@ char* makeNewDr(char *aDir){
         printf("Unable to create directory\n");
         exit(1);
     }
+
+    // add to test memory leak
+    free(dirname);
+    free(newPath);
 
     // Return the directory path
     return newPath;
