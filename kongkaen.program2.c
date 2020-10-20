@@ -74,7 +74,9 @@ movie *processFile(char *fileName)
     FILE *fp = fopen(fileName, "r");
 
     // Creat charactor array to store data in each line
-    char currLine[1024];
+    char *currLine=NULL;
+    size_t len = 0;
+    ssize_t nread;
     // a counter to count the number of line being read.
     int line_count=0;
     // The head of the linked list
@@ -83,7 +85,7 @@ movie *processFile(char *fileName)
     movie *tail = NULL;
 
     // Read a line from the file
-    while (fgets(currLine, sizeof(currLine), fp))
+    while ((nread = getline(&currLine, &len, fp)) != -1)
     {
       // skip reading the first line which is the column header
       if (line_count >=1)
@@ -112,8 +114,9 @@ movie *processFile(char *fileName)
       line_count++;
 
     }
-
+    
     fclose(fp);
+    free(currLine);
     return head;
 }
 
