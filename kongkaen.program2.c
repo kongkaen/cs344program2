@@ -28,8 +28,7 @@ typedef struct movie
 {
     char *title;
     int year;
-    char *language;
-    float rating;
+
     struct movie *next;
 } movie;
 
@@ -42,7 +41,10 @@ movie *createMovie(char *line)
     movie *currMovie = malloc(sizeof(struct movie));
 
     // Pointer to use with strtok_r
-    char *saveptr;
+    char *saveptr=NULL;
+
+    int n;
+    n = 4;
 
     // The first token is the movie title
     char *token = strtok_r(line, ",", &saveptr);
@@ -51,16 +53,9 @@ movie *createMovie(char *line)
 
     // The next token is the year release
     token = strtok_r(NULL, ",", &saveptr);
+    currMovie->year = (int)calloc(n, sizeof(int));
     currMovie->year = atoi(token);
 
-    // The next token is the language
-    token = strtok_r(NULL, ",", &saveptr);
-    currMovie->language = calloc(strlen(token) + 1, sizeof(char));
-    strcpy(currMovie->language, token);
-
-    // The last token is the rating score
-    token = strtok_r(NULL, "\n", &saveptr);
-    currMovie->rating = strtof(token, NULL);
 
     // Set the next node to NULL in the newly created movie entry
     currMovie->next = NULL;
@@ -140,15 +135,6 @@ void swap(movie *ptr1, movie*ptr2)
 	ptr1->year = ptr2->year;
 	ptr2->year = temp2;
 
-  // Swap language
-	char *temp3 = ptr1->language;
-	ptr1->language = ptr2->language;
-	ptr2->language = temp3;
-
-  // Swap rating
-	float temp4 = ptr1->rating;
-	ptr1->rating = ptr2->rating;
-	ptr2->rating = temp4;
 
 }
 
