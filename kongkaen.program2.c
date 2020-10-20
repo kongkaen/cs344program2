@@ -83,7 +83,7 @@ movie *processFile(char *fileName)
     movie *tail = NULL;
 
     // Read a line from the file
-    while (fgets(currLine, 1024, fp))
+    while (fgets(currLine, sizeof(currLine), fp))
     {
       // skip reading the first line which is the column header
       if (line_count >=1)
