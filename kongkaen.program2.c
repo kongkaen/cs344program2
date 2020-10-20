@@ -28,7 +28,8 @@ typedef struct movie
 {
     char *title;
     int year;
-
+    char *language;
+    float rating;
     struct movie *next;
 } movie;
 
@@ -41,10 +42,7 @@ movie *createMovie(char *line)
     movie *currMovie = malloc(sizeof(struct movie));
 
     // Pointer to use with strtok_r
-    char *saveptr=NULL;
-
-    int n;
-    n = 4;
+    char *saveptr;
 
     // The first token is the movie title
     char *token = strtok_r(line, ",", &saveptr);
@@ -53,9 +51,16 @@ movie *createMovie(char *line)
 
     // The next token is the year release
     token = strtok_r(NULL, ",", &saveptr);
-    currMovie->year = (int)calloc(n, sizeof(int));
     currMovie->year = atoi(token);
 
+    // The next token is the language
+    token = strtok_r(NULL, ",", &saveptr);
+    currMovie->language = calloc(strlen(token) + 1, sizeof(char));
+    strcpy(currMovie->language, token);
+
+    // The last token is the rating score
+    token = strtok_r(NULL, "\n", &saveptr);
+    currMovie->rating = strtof(token, NULL);
 
     // Set the next node to NULL in the newly created movie entry
     currMovie->next = NULL;
@@ -74,9 +79,7 @@ movie *processFile(char *fileName)
     FILE *fp = fopen(fileName, "r");
 
     // Creat charactor array to store data in each line
-    char *currLine=NULL;
-    size_t len = 0;
-    ssize_t nread;
+    char currLine[1024];
     // a counter to count the number of line being read.
     int line_count=0;
     // The head of the linked list
@@ -85,7 +88,7 @@ movie *processFile(char *fileName)
     movie *tail = NULL;
 
     // Read a line from the file
-    while ((nread = getline(&currLine, &len, fp)) != -1)
+    while (fgets(currLine, 1024, fp))
     {
       // skip reading the first line which is the column header
       if (line_count >=1)
@@ -114,9 +117,9 @@ movie *processFile(char *fileName)
       line_count++;
 
     }
-
+    printf("Processed file %s and parsed data for %d movies\n", fileName, line_count-1);
     fclose(fp);
-    free(currLine);
+    //free(currLine);
     return head;
 }
 
