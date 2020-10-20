@@ -117,7 +117,7 @@ movie *processFile(char *fileName)
       line_count++;
 
     }
-    printf("Processed file %s and parsed data for %d movies\n", fileName, line_count-1);
+    
     fclose(fp);
     //free(currLine);
     return head;
