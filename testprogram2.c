@@ -67,6 +67,7 @@ movie *createMovie(char *line)
 
     //add to test free memory
     free(currMovie);
+    free(saveptr);
 }
 
 /* Part of the following function are from my previous assignment */
