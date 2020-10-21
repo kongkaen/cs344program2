@@ -2,10 +2,6 @@ Natthaphong Kongkaew
 CS344 Fall 2020
 Assignment 2 : Files & Directories
 
-*NOTE:    the program may result in Segmentation Fault (core dumped). I have not figure out how to fix it due to memory leak. 
-          For now to make program run without the issue, I have tried
-          try to choose the option 3 first ("Enter 3 to specify the name of a file") then specify the name of the files to be processed.
-          After the repeat again, you can select any options (1-3).
 
 -----------------------------------------
 Files requires for compile the program
