@@ -76,8 +76,11 @@ to create a linked list of movie
 */
 movie *processFile(char *fileName)
 {
+  char* temp;
+   temp = malloc(100 * sizeof(char));
+   strcpy(temp, fileName);
     // Open a file in read only mode
-    FILE *fp = fopen(fileName, "r");
+    FILE *fp = fopen(temp, "r");
 
     // Creat charactor array to store data in each line
     char *currLine = NULL;
